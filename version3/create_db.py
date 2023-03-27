@@ -6,13 +6,17 @@ def create_database() -> None:
     with sqlite3.connect('../application.db') as conn:
         cur = conn.cursor()
 
+        # Drop table
+        cur.execute('''DROP TABLE IF EXISTS blogs''')
+
         # Create table
-        cur.execute('''CREATE TABLE blogs
+        cur.execute('''CREATE TABLE IF NOT EXISTS blogs
                     (id text NOT NULL PRIMARY KEY,
                     date TEXT,
                     title TEXT,
                     content TEXT,
                     public INTEGER)''')
+
 
         # Seed db
         cur.execute("INSERT INTO blogs VALUES ('first-blog', '2021-03-07', 'My first blog' ,'Some content', 1)")

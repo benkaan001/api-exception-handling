@@ -5,10 +5,9 @@
 ```
 @retry(sqlite3.OperationalError, tries=3, delay=1, backoff=2)
 def create_database() -> None:
-    with sqlite3.connect('../application.db') as conn:
+    with sqlite3.connect('application.db') as conn:
         cur = conn.cursor()
 
-        # Create table
         cur.execute('''CREATE TABLE blogs
                     (id text NOT NULL PRIMARY KEY,
                     date TEXT,
@@ -16,11 +15,9 @@ def create_database() -> None:
                     content TEXT,
                     public INTEGER)''')
 
-        # Seed db
         cur.execute("INSERT INTO blogs VALUES ('first-blog', '2021-03-07', 'My first blog' ,'Some content', 1)")
         cur.execute("INSERT INTO blogs VALUES ('private-blog', '2021-03-07', 'Secret blog' ,'This is a secret', 0)")
 
-        # commit changes
         conn.commit()
 
 ```
@@ -32,9 +29,9 @@ This example is using `sqlite3.OperationalError` as the `ExceptionToCheck` param
 ```
 @app.route('/blogs/<id>')
 @log_exceptions()
-def get_blog(id):
+def get_blog(blog_id):
     try:
-        return jsonify(fetch_blog(id))
+        return jsonify(fetch_blog(blog_id))
     except NotFoundError:
         abort(404, description="Resource not found.")
     except NotAuthorizedError:
@@ -42,4 +39,4 @@ def get_blog(id):
 
 ```
 
-CHeck `exec_loger.log` for details.
+Check `exec_loger.log` for details.

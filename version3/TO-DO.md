@@ -26,3 +26,20 @@ def create_database() -> None:
 ```
 
 This example is using `sqlite3.OperationalError` as the `ExceptionToCheck` parameter, and setting `tries=3`, `delay=1`, and `backoff=2`, which means that the `create_database` function will be retried up to 3 times with a delay of 1 second between retries, and the delay will be doubled after each retry. If the `sqlite3.OperationalError` exception is still raised after 3 tries, the exception will be propagated to the caller of the `create_database` function.
+
+### 2. Decorate `get_blog()` with `log_exceptions`
+
+```
+@app.route('/blogs/<id>')
+@log_exceptions()
+def get_blog(id):
+    try:
+        return jsonify(fetch_blog(id))
+    except NotFoundError:
+        abort(404, description="Resource not found.")
+    except NotAuthorizedError:
+        abort(403, description="Access denied.")
+
+```
+
+CHeck `exec_loger.log` for details.

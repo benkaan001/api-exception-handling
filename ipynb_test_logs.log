@@ -1,0 +1,10 @@
+2023-03-26 22:33:07,319 - exc_logger - ERROR - Exception in test_divide: division by zero
+Traceback (most recent call last):
+  File "/var/folders/2w/g1xqblv11xdc789plh7y3tsw0000gn/T/ipykernel_51946/1443409947.py", line 39, in wrapper_log_exceptions
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/var/folders/2w/g1xqblv11xdc789plh7y3tsw0000gn/T/ipykernel_51946/194804010.py", line 3, in test_divide
+    return num1 / num2
+           ~~~~~^~~~~~
+ZeroDivisionError: division by zero
+

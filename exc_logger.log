@@ -1,0 +1,45 @@
+2023-03-26 22:52:51,975 - exc_logger - ERROR - Exception in fetch_blog: Unable to find blog with id='second-blog'
+Traceback (most recent call last):
+  File "/Users/benkaan/Desktop/projects/api_exception_handling/step3/logging_decorator.py", line 81, in wrapper_log_exceptions
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/benkaan/Desktop/projects/api_exception_handling/step3/db.py", line 64, in fetch_blog
+    raise NotFoundError(f"Unable to find blog with {id=}")
+db.NotFoundError: Unable to find blog with id='second-blog'
+
+2023-03-26 22:53:05,774 - exc_logger - ERROR - Exception in fetch_blog: Unable to find blog with id='second-blog'
+Traceback (most recent call last):
+  File "/Users/benkaan/Desktop/projects/api_exception_handling/step3/logging_decorator.py", line 81, in wrapper_log_exceptions
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/benkaan/Desktop/projects/api_exception_handling/step3/db.py", line 64, in fetch_blog
+    raise NotFoundError(f"Unable to find blog with {id=}")
+db.NotFoundError: Unable to find blog with id='second-blog'
+
+2023-03-26 22:53:26,746 - exc_logger - ERROR - Exception in fetch_blog: Unable to find blog with id='wrong-blog'
+Traceback (most recent call last):
+  File "/Users/benkaan/Desktop/projects/api_exception_handling/step3/logging_decorator.py", line 81, in wrapper_log_exceptions
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/benkaan/Desktop/projects/api_exception_handling/step3/db.py", line 64, in fetch_blog
+    raise NotFoundError(f"Unable to find blog with {id=}")
+db.NotFoundError: Unable to find blog with id='wrong-blog'
+
+2023-03-26 22:53:35,937 - exc_logger - ERROR - Exception in fetch_blog: Unable to find blog with id='wrong-blog'
+Traceback (most recent call last):
+  File "/Users/benkaan/Desktop/projects/api_exception_handling/step3/logging_decorator.py", line 81, in wrapper_log_exceptions
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/benkaan/Desktop/projects/api_exception_handling/step3/db.py", line 64, in fetch_blog
+    raise NotFoundError(f"Unable to find blog with {id=}")
+db.NotFoundError: Unable to find blog with id='wrong-blog'
+
+2023-03-26 22:53:48,294 - exc_logger - ERROR - Exception in fetch_blog: Unable to find blog with id='no-blog'
+Traceback (most recent call last):
+  File "/Users/benkaan/Desktop/projects/api_exception_handling/step3/logging_decorator.py", line 81, in wrapper_log_exceptions
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/benkaan/Desktop/projects/api_exception_handling/step3/db.py", line 64, in fetch_blog
+    raise NotFoundError(f"Unable to find blog with {id=}")
+db.NotFoundError: Unable to find blog with id='no-blog'
+

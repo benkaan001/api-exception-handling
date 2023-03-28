@@ -1,6 +1,6 @@
 # API Exception Handling
 
-This repository contains step by step implementation of various exception handling in a simple API that interacts with a SQLite database. The repository contains three versions, each with different improvements.
+This repository is a guide that walks you through how to handle exceptions using a basic API that communicates with a SQLite database. It includes four versions, each with their own set of enhancements.
 
 ## Version 1
 
@@ -39,7 +39,7 @@ The third version of the API implements the following steps:
 ```
 @retry(sqlite3.OperationalError, tries=3, delay=1, backoff=2)
 def create_database() -> None:
-    with sqlite3.connect('../application.db') as conn:
+    with sqlite3.connect('application.db') as conn:
         cur = conn.cursor()
 
         cur.execute('''CREATE TABLE blogs
@@ -70,4 +70,11 @@ def get_blog(blog_id):
         abort(403, description="Access denied.")
 
 ```
+
+## Version 4
+
+The fourth version refactors the code to demonstrate `monadic error handling` concepts with the `Result` type from the `returns` library. The `Result` type is a monadic data type that represents the outcome of a computation that may succeed or fail. The `Success` subclass holds the result of the computation, while the `Failure` subclass and holds the exception.
+
+The updated version of the `@log_exceptions` decorator now logs exceptions to `version4_logs.log` file.
+
 Each version is contained within its own directory and is documented in a separate markdown file.

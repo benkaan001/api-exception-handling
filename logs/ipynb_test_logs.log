@@ -1,0 +1,2 @@
+2023-03-27 18:26:18,805:__main__:ERROR:Exception in test_divide: division by zero                                
+['Traceback (most recent call last):\n  File "/var/folders/2w/g1xqblv11xdc789plh7y3tsw0000gn/T/ipykernel_60054/24222702.py"', ' line 7', ' in wrapper_log_exceptions\n    return func(*args']

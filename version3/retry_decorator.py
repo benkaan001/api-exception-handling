@@ -33,10 +33,10 @@ def retry(ExceptionToCheck, tries=4, delay=3, backoff=2, logger=None):
     # waits 2 seconds and retries up to 3 times before failing with the ValueError exception
     """
 
-    def deco_retry(f):
+    def decorator_retry(f):
 
         @wraps(f)
-        def f_retry(*args, **kwargs):
+        def wrapper_retry(*args, **kwargs):
             mtries, mdelay = tries, delay
             while mtries > 1:
                 try:
@@ -53,6 +53,6 @@ def retry(ExceptionToCheck, tries=4, delay=3, backoff=2, logger=None):
 
             return f(*args, **kwargs)
 
-        return f_retry  # true decorator
+        return wrapper_retry  # true decorator
 
-    return deco_retry
+    return decorator_retry

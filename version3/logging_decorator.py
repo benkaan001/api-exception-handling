@@ -3,7 +3,7 @@ import traceback # to format traceback message
 from functools import wraps
 from typing import Any, Callable
 
-def create_logger(log_file_path: str = 'exc_logger.log', log_level: int = logging.INFO) -> logging.Logger:
+def create_logger(log_file_path: str = 'default_logger.log', log_level: int = logging.INFO) -> logging.Logger:
     """
     Creates a `logger` object that writes log messages to a file.
 
@@ -26,21 +26,21 @@ def create_logger(log_file_path: str = 'exc_logger.log', log_level: int = loggin
         - `logger.error()`, and
         - `logger.critical()`.
     """
-    logger = logging.getLogger('exc_logger')
+    logger = logging.getLogger(__name__)
     logger.setLevel(log_level)
 
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    formatter = logging.Formatter('%(asctime)s:%(name)s:%(levelname)s:%(message)s')
 
-    # Create a file to store all the logged exceptions
-    logfile = logging.FileHandler(log_file_path)
-    logfile.setLevel(log_level)
-    logfile.setFormatter(formatter)
-    logger.addHandler(logfile)
+    file_handler = logging.FileHandler(log_file_path)
+    file_handler.setLevel(log_level)
+    file_handler.setFormatter(formatter)
+
+    logger.addHandler(file_handler)
 
     return logger
 
 
-def log_exceptions(logger: logging.Logger =create_logger()) -> Callable[[Any], Any]:
+def log_exceptions(logger: logging.Logger) -> Callable[[Any], Any]:
     """
     A decorator function that logs any exceptions raised by the decorated function.
 
@@ -80,7 +80,10 @@ def log_exceptions(logger: logging.Logger =create_logger()) -> Callable[[Any], A
             try:
                 return func(*args, **kwargs)
             except Exception as e:
-                error_message = f"Exception in {func.__name__}: {e}\n{traceback.format_exc()}"
+                traceback_message = traceback.format_exc()
+                modified_traceback_message = traceback_message.split(',')[:3]
+                error_message = f"Exception in {func.__name__}: {e}\
+                                \n{modified_traceback_message}"
                 logger.error(error_message)
                 # raise # would halt the application
         return wrapper_log_exceptions

@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, abort
 from create_db import create_database
 from db import fetch_blogs, fetch_blog, NotAuthorizedError, NotFoundError
-from logging_decorator import log_exceptions
+from logging_decorator import log_exceptions,create_logger
 
 app = Flask(__name__)
 
@@ -15,7 +15,7 @@ def all_blogs():
 
 
 @app.route('/blogs/<id>')
-@log_exceptions()
+@log_exceptions(logger=create_logger('logs/version3_logs.log'))
 def get_blog(id):
     try:
         return jsonify(fetch_blog(id))

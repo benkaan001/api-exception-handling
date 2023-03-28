@@ -1,0 +1,4 @@
+2023-03-27 18:30:48,784:updated_logging_decorator:ERROR:Exception in verify_access: You are not allowed to access blog with blog_id='private-blog'                                
+['Traceback (most recent call last):\n  File "/Users/benkaan/Desktop/projects/api_exception_handling/version4/updated_logging_decorator.py"', ' line 85', ' in wrapper_log_exceptions\n    return func(*args']
+2023-03-27 18:30:48,784:updated_logging_decorator:ERROR:Exception in fetch_blog_from_db: Unable to find blog with blog_id='wrong-blog'.                                
+['Traceback (most recent call last):\n  File "/Users/benkaan/Desktop/projects/api_exception_handling/version4/updated_logging_decorator.py"', ' line 85', ' in wrapper_log_exceptions\n    return func(*args']

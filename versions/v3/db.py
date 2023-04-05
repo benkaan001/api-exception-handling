@@ -1,7 +1,9 @@
 import sqlite3
+from utils.retry_decorator import retry
+from utils.logging_decorator import create_logger, log_exceptions
 
 class SQLite:
-    def __init__(self, file="application.db"):
+    def __init__(self, file="./data/application.db"):
         self.file = file
     def __enter__(self):
         self.conn = sqlite3.connect(self.file)
@@ -28,7 +30,7 @@ def blog_list_to_json(blog_post):
 def fetch_blogs():
     """ Returns all the public blogs."""
     try:
-        with SQLite("application.db") as cur:
+        with SQLite("./data/application.db") as cur:
             # execute the query
             cur.execute('SELECT * FROM blogs WHERE public=1')
 
@@ -42,11 +44,16 @@ def fetch_blogs():
         print(e)
         return []
 
+# create a Logger object with a specified path for the log_exceptions wrapper
+logger = create_logger(log_file_path='../exc_logger.log')
 
+
+@retry(sqlite3.Error, tries=3, delay=2, backoff=2)
+@log_exceptions(logger=logger)
 def fetch_blog(id: str):
     """ Returns the blog belonging to the id passed."""
     try:
-        with SQLite("application.db") as cur:
+        with SQLite("./data/application.db") as cur:
 
             # excecute query and fetch data
             cur.execute(f"SELECT * FROM blogs WHERE id='{id}'")

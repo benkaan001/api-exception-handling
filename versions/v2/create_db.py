@@ -7,7 +7,7 @@ def create_database() -> None:
     Returns:
     None
     """
-    with sqlite3.connect('../application.db') as conn:
+    with sqlite3.connect('./data/application.db') as conn:
         cur = conn.cursor()
 
         # Create table

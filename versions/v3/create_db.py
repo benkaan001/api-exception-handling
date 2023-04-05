@@ -1,9 +1,9 @@
 import sqlite3
-from retry_decorator import retry
+from utils.retry_decorator import retry
 
 @retry(sqlite3.OperationalError, tries=3, delay=1, backoff=2)
 def create_database() -> None:
-    with sqlite3.connect('../application.db') as conn:
+    with sqlite3.connect('./data/application.db') as conn:
         cur = conn.cursor()
 
         # Drop table

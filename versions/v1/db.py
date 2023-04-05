@@ -20,7 +20,7 @@ def fetch_blogs():
     """ Returns all the public blogs."""
     try:
         # connect to the db
-        con = sqlite3.connect('application.db')
+        con = sqlite3.connect('./data/application.db')
         cur = con.cursor()
 
         # execute the query
@@ -45,7 +45,7 @@ def fetch_blog(id: str):
     """ Returns the blog belonging to the id passed."""
     try:
         # connect to the db
-        con = sqlite3.connect('application.db')
+        con = sqlite3.connect('./data/application.db')
         cur = con.cursor()
 
         # excecute query and fetch data

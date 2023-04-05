@@ -1,9 +1,7 @@
 import sqlite3
-from retry_decorator import retry
-from logging_decorator import create_logger, log_exceptions
 
 class SQLite:
-    def __init__(self, file="application.db"):
+    def __init__(self, file="./data/application.db"):
         self.file = file
     def __enter__(self):
         self.conn = sqlite3.connect(self.file)
@@ -44,12 +42,7 @@ def fetch_blogs():
         print(e)
         return []
 
-# create a Logger object with a specified path for the log_exceptions wrapper
-logger = create_logger(log_file_path='../exc_logger.log')
 
-
-@retry(sqlite3.Error, tries=3, delay=2, backoff=2)
-@log_exceptions(logger=logger)
 def fetch_blog(id: str):
     """ Returns the blog belonging to the id passed."""
     try:

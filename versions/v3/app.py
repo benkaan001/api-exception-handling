@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, abort
 from create_db import create_database
 from db import fetch_blogs, fetch_blog, NotAuthorizedError, NotFoundError
-from logging_decorator import log_exceptions,create_logger
+from utils.logging_decorator import log_exceptions,create_logger
 
 app = Flask(__name__)
 

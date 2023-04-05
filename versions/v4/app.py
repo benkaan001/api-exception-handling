@@ -3,13 +3,13 @@ from typing import List
 from returns.result import Result, safe
 from returns.pipeline import flow
 from returns.pointfree import bind
-from updated_logging_decorator import log_exceptions, create_logger
+from utils.updated_logging_decorator import log_exceptions, create_logger
 
 # create a logger object to pass to log_exceptions
 version4_logger = create_logger(log_file_path='logs/version4_logs.log')
 
 class SQLite():
-    def __init__(self, file='application.db'):
+    def __init__(self, file='./data/application.db'):
         self.file = file
         self.conn = None
 
@@ -29,7 +29,7 @@ class NotAuthorizedError(Exception):
 @safe
 @log_exceptions(logger=version4_logger)
 def fetch_blog_from_db(blog_id) -> List:
-    with SQLite('application.db') as cur:
+    with SQLite('./data/application.db') as cur:
         cur.execute(f"SELECT * FROM blogs WHERE id=?", [blog_id])
         result = cur.fetchone()
         if result is None:

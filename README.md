@@ -1,6 +1,48 @@
 # API Exception Handling
 
-This repository is a guide that walks you through how to handle exceptions using a basic API that communicates with a SQLite database. It includes four versions, each with their own set of enhancements.
+This repository provides a guide on how to handle exceptions in a basic API that communicates with a SQLite database. It includes four versions, each with their own set of enhancements.
+
+```
+api_exception_handling
+│
+├── notebooks/
+│   ├── logging_decorator.ipynb
+│   └── retry_decorator.ipynb
+│
+├── logs/
+│   ├── README.md
+│   └── application.log
+│
+├── utils/
+│   ├── __init__.py
+│   ├── decorator1.py
+│   ├── decorator2.py
+│   └── ...
+│
+├── versions/
+│   ├── legacy/
+│   │   └── __init__.py
+│   ├── v1/
+│   │   ├── __init__.py
+│   │   └── TO-DO.md
+│   ├── v2/
+│   │   ├── __init__.py
+│   │   └── TO-DO.md
+│   ├── v3/
+│   │   ├── __init__.py
+│   │   └── TO-DO.md
+│   └── v4/
+│       ├── __init__.py
+│       └── TO-DO.md
+│
+├── data/
+│   └── application.db
+│
+├── .gitignore
+├── README.md
+└── __init__.py
+
+```
 
 ## Version 1
 
@@ -19,9 +61,9 @@ The second version of the API implements the following steps:
 - Automate the database creation and run it as the main program
 - Integrate Context Manager
 
-```
+```python
 class SQLite:
-    def __init__(self, file="my_application.db"):
+    def __init__(self, file="application.db"):
         self.file = file
     def __enter__(self):
         self.conn = sqlite3.connect(self.file)
@@ -36,7 +78,7 @@ The third version of the API implements the following steps:
 
 - Create a `retry()` decorator to retry database connection in case of a failure
 - Create a `log_exceptions()` decorator to log errors and exceptions during data fetching.
-```
+```python
 @retry(sqlite3.OperationalError, tries=3, delay=1, backoff=2)
 def create_database() -> None:
     with sqlite3.connect('application.db') as conn:
@@ -58,7 +100,7 @@ def create_database() -> None:
 
 ```
 
-```
+```python
 @app.route('/blogs/<id>')
 @log_exceptions()
 def get_blog(blog_id):
@@ -73,7 +115,7 @@ def get_blog(blog_id):
 
 ## Version 4
 
-The fourth version refactors the code to demonstrate `monadic error handling` concepts with the `Result` type from the `returns` library. The `Result` type is a monadic data type that represents the outcome of a computation that may succeed or fail. The `Success` subclass holds the result of the computation, while the `Failure` subclass and holds the exception.
+The fourth version refactors the code to demonstrate `monadic error handling` concepts with the `Result` type from the `returns` library. The `Result` type is a monadic data type that represents the outcome of a computation that may succeed or fail. The `Success` subclass holds the result of the computation, while the `Failure` subclass holds the exception.
 
 The updated version of the `@log_exceptions` decorator now logs exceptions to `version4_logs.log` file.
 
